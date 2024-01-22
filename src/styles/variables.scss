@@ -1,0 +1,21 @@
+$base-purple:#4E148C;
+$base-lightpurple: #E8EBF2;
+$base-lavender:#858AE3;
+
+@mixin block-styles {
+    background-color: $base-lightpurple;
+    color: $base-lavender;
+    border-radius: 10px;
+    padding: 30px 25px;
+}
+
+@mixin filters-style {
+    width: 21px;
+    height: 21px;
+    border: 1px solid $base-purple;
+    appearance: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

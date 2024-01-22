@@ -1,0 +1,92 @@
+@import '../../styles/variables.scss';
+
+.filters {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    @media (max-width: 960px) {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .wrapper {
+        @include block-styles();
+        padding: 15px 15px;
+
+        @media (max-width: 960px) {
+            background: none;
+            color: white;
+        }
+        
+        .title {
+            font-size: 20px;
+            font-weight: 700;
+            color: $base-purple;
+            margin-bottom: 19px;
+
+            @media (max-width: 960px) {
+                color: white;
+            }
+        }
+
+        .label {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 15px;
+            font-size: 16px;
+            margin-bottom: 19px;
+            margin-left: 15px;
+
+            .check {
+                @include filters-style();
+                border-radius: 4px;
+
+                @media (max-width: 960px) {
+                    border-color: white;
+                }
+
+                &:checked {
+                 
+                    &::before {
+                        content: '\2714'; // Юникод символ галочки
+                        font-size: 15px; 
+                        color: $base-purple;
+                        @media (max-width: 960px) {
+                            color: white;
+                        }
+                    }
+                }
+            }
+
+            .circle {
+            @include filters-style();
+            border-radius: 100%;
+
+            @media (max-width: 960px) {
+                border-color: white;
+            }
+
+            &:checked {
+                 
+                &::before {
+                    content: ''; 
+                    display: block;
+                    width: 15px;
+                    height: 15px;
+                    background-color: $base-purple;
+                    border-radius: 50%;
+
+                    @media (max-width: 960px) {
+                        background-color: white;
+                    }
+                }
+            }
+
+            }
+        
+        }
+    }
+}

@@ -1,0 +1,33 @@
+@import '../../styles/variables.scss';
+
+.header {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    @media (max-width: 960px) {
+        justify-content: center;
+      }
+
+    .logo__svg {
+        width: 100px;
+        height: 80px;
+        margin-right: 20px;
+
+        @media (max-width: 960px) {
+            width: 57px;
+            height: 46px;
+        }
+    }
+
+    .logo__text {
+        color: $base-purple;
+        font-size: 24px;
+        font-weight: 700;
+
+        @media (max-width: 960px) {
+            display: none;
+          }
+    }
+}
