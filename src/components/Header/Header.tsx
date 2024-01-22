@@ -2,7 +2,7 @@ import s from './Header.module.scss';
 import logo from '../../assets/logo.svg';
 
 // Создаём компонент с хэддером
-export default function Header () {
+const Header  = () => {
     return (
         <header className={s.header}>
             <img className={s.logo__svg} src={logo} alt={"Logo"}/>
@@ -10,3 +10,5 @@ export default function Header () {
         </header>
     )
 }
+
+export default Header;

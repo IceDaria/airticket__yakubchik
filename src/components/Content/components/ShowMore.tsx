@@ -6,7 +6,7 @@ interface ShowMoreProps {
   }
 
 // Создаём кнопочку "загрузить ещё"
-export const ShowMore: React.FC<ShowMoreProps> = ({ loadMoreHandler }) => {
+const ShowMore: React.FC<ShowMoreProps> = ({ loadMoreHandler }) => {
 
     function handleClick() {
         loadMoreHandler();
@@ -16,3 +16,5 @@ export const ShowMore: React.FC<ShowMoreProps> = ({ loadMoreHandler }) => {
      <button className={s.showMore} onClick={handleClick}>Загрузить ещё билеты</button>
     );
 }
+
+export default ShowMore;

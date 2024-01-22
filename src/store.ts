@@ -2,8 +2,6 @@ import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import contentReduser from "./shared/Redusers/contentReduser";
 import filtersReducer from "./shared/Redusers/filtersReducer";
 
-
-
 const rootReducer = combineReducers({
     tickets: contentReduser,
     filter: filtersReducer

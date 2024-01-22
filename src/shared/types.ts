@@ -1,22 +1,17 @@
-export interface TicketTime {
-    startTime: string;
-    endTime: string;
-};
-
 export interface Ticket {
     id: number;
     from: string;
     to: string;
     company: string;
     price: number;
-    time: TicketTime;
+    startTime: string;
+    endTime: string;
     duration: number;
     connectionAmount: number;
 };
 
-export interface Airport {
+export interface Airports {
     code: string;
-    name: string;
   };
 
 export interface Companies {

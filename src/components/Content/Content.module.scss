@@ -10,6 +10,7 @@
         width: 100%;
     }
 
+// стили для вершней плашки сортировки
     .sorting {
         @include block-styles();
         display: grid;
@@ -52,6 +53,7 @@
         }
     }
 
+ // стили для билета
     .ticket {
         @include block-styles();
         display: flex;
@@ -73,11 +75,19 @@
                 font-size: 32px;
                 font-weight: 700;
                 color: $base-purple;
+
+                @media (max-width: 420px) {
+                    font-size: 25px;
+                }
             }
 
             .logo {
                 max-width: 180px;
                 max-height: 51px;
+                @media (max-width: 420px) {
+                    max-width: 130px;
+                    max-height: 41px;
+                }
             }
         }
 
@@ -99,6 +109,7 @@
         }
     }
 
+    // стили для кнопочки
     .showMore {
         cursor: pointer;
         width: 100%;
@@ -155,7 +166,5 @@
                 }
             }
         }
-      }
-
-    
+      }   
 }

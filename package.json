@@ -9,6 +9,10 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "repository": {
+    "url": "https://github.com/IceDaria/airticket__yakubchik.git"
+  },
+  "author": "IceDaria",
   "dependencies": {
     "@reduxjs/toolkit": "^2.0.1",
     "@types/react-redux": "^7.1.33",

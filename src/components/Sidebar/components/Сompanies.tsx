@@ -3,16 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import s from '.././Sidebar.module.scss';
 import { FilterState, setCompany } from '../../../shared/Redusers/filtersReducer';
 
-
 // Создаём компонент для фильтрации по компаниям
-export default function Companies() {
+const Companies = () =>  {
     const company = useSelector((state: FilterState) => state.filter.company);
     const dispatch = useDispatch();
 
 // Данные для радио-кнопок с выбором компании
     const companyData = [
         { id: 'all', value: 'all', label: 'Все компании' },
-        { id: 'victory', value: 'victory', label: 'Победа' },
+        { id: 'pobeda', value: 'pobeda', label: 'Победа' },
         { id: 'redWings', value: 'redWings', label: 'Red Wings' },
         { id: 'S7', value: 'S7', label: 'S7 Airlines' },
     ];
@@ -25,7 +24,7 @@ export default function Companies() {
     return (
         <div className={s.wrapper}>
             <div className={s.company}>
-                <h4 className={s.title}>Компании</h4>
+                <p className={s.title}>Компании</p>
                 <div className={s.radio}>
             {/* Отображаем радио-кнопоки на основе данных из companyData */}
                     {companyData.map(({ id, value, label }) => (
@@ -49,3 +48,5 @@ export default function Companies() {
         </div>
     );
 }
+
+export default Companies;

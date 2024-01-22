@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import s from '.././Sidebar.module.scss';
 import { FilterState, setConnections } from '../../../shared/Redusers/filtersReducer';
+import { useWindowSize } from '../../../shared/customHooks';
 
 // Создаём компонент для фильтрации по количеству пересадок
-export default function Connections() {
+const Connections = () => {
     const connections = useSelector((state: FilterState) => state.filter.connections);
     const dispatch = useDispatch();
 
@@ -20,10 +21,13 @@ export default function Connections() {
         dispatch(setConnections({ value, selected }));
     };
 
+    // Используем кастомный хук для определения расширения
+    const  { isMobile} = useWindowSize();
+
     return (
         <div className={s.wrapper}>
             <div className={s.transfer}>
-                <h4 className={s.title}>Количество пересадок</h4>
+                <p className={s.title}>{isMobile ? 'Кол-во пересадок' : 'Количество пересадок'}</p>
                 <div className={s.checkbox}>
                     {/* Отображение чекбоксов на основе данных из checkboxData */}
                     {checkboxData.map(({ id, value, label }) => (
@@ -33,7 +37,6 @@ export default function Connections() {
                                     className={s.check}
                                     type="checkbox"
                                     value={value}
-                                    id={id}
                                     checked={connections[value].selected}
                                     onChange={(e) => handleCheckbox(value, e.currentTarget.checked)}
                                 />
@@ -46,3 +49,5 @@ export default function Connections() {
         </div>
     );
 }
+
+export default Connections;

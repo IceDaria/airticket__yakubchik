@@ -2,9 +2,8 @@ import s from './Sidebar.module.scss';
 import Connections from './components/Connections';
 import Companies from './components/Сompanies';
 
-
 // СОздаём боковую панель с фильтрами
-export default function Sidebar() {
+const Sidebar = () => {
     return (
         <div className={s.filters}>
             <Connections />
@@ -12,3 +11,5 @@ export default function Sidebar() {
         </div>
     )
 }
+
+export default Sidebar;

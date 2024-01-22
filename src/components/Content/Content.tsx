@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import s from './Content.module.scss';
-import { FilterState } from '../../shared/Redusers/filtersReducer';
-import { TicketState, fetchTickets, filterTickets, loadMore, showTickets } from '../../shared/Redusers/contentReduser';
-import { ShowMore } from './components/ShowMore';
+import { fetchTickets, filterTickets, loadMore, showTickets } from '../../shared/Redusers/contentReduser';
+import Sorting from './components/Sorting';
 import Sidebar from '../Sidebar/Sidebar';
-import { Tickets } from './components/Tickets';
+import Tickets from './components/Tickets';
+import ShowMore from './components/ShowMore';
 import { GlobalSVGSelector } from '../../assets/GlobalSVGSelector';
-import { Sorting } from './components/Sorting';
-import { useWindowResize } from '../../shared/customHooks';
+import { useWindowSize } from '../../shared/customHooks';
+import { RootState } from '../../store';
 
-export const Content = () => {
-  const ticketState = useSelector((state: TicketState) => state.tickets);
-  const { tickets, shown } = ticketState;
-  const { connections, company, criteria } = useSelector((state: FilterState) => state.filter);
+// Создаём компонент с основным контентом на странице
+const Content = () => {
+  const { tickets, shown } = useSelector((state: RootState) => state.tickets);
+  const { connections, company, criteria } = useSelector((state: RootState) => state.filter);
   const filteredTickets = Array.isArray(tickets) ? filterTickets(tickets, connections, company.value) : [];
 
   const dispatch = useDispatch();
@@ -21,9 +21,7 @@ export const Content = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log('Before fetching tickets...');
         await dispatch(fetchTickets() as any);
-        console.log('After fetching tickets...');
         dispatch(showTickets({ criteria }));
       } catch (error) {
         console.error('Error fetching tickets:', error);
@@ -34,10 +32,10 @@ export const Content = () => {
   }, [criteria, dispatch]);
 
   // Настройки для дропдаум меню в мобильной версии, используем кастомный хук
-  const [isMobile] = useWindowResize();
+  const { isMobile } = useWindowSize();
 
+  // Обработчик клика и раскрытия меню в мобильной версии
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const handleMenuClick = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -51,8 +49,7 @@ export const Content = () => {
             <p className={s.text}>Авиакомпании, кол-во пересадок</p>
             <button 
               className={s.dropdown}
-              onClick={handleMenuClick}
-            >
+              onClick={handleMenuClick}>
               Открыть настройки 
               <span className={s.arrow}><GlobalSVGSelector id={isMenuOpen ? 'arrow-up' : 'arrow-down'} /></span>
             </button>
@@ -60,17 +57,9 @@ export const Content = () => {
           {isMenuOpen && <Sidebar />} 
         </div>
       )}
-      {ticketState.status === 'succeeded' && (
-      <>
-        {filteredTickets.length > 0 ? (
-          filteredTickets.slice(0, shown).map((ticket) => (
-            <Tickets key={ticket.id} ticket={ticket} />
-          ))
-        ) : (
-          <div>No tickets match the criteria.</div>
-        )}
-      </>
-    )}
+      {filteredTickets.slice(0, shown).map((ticket) => (
+        <Tickets key={ticket.id} ticket={ticket} />
+      ))}
       <ShowMore loadMoreHandler={() => dispatch(loadMore())} />
     </div>
   );

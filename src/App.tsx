@@ -1,12 +1,12 @@
 import { Provider } from "react-redux";
-import { Content } from "./components/Content/Content";
-import Header from "./components/Header/Header";
 import { store } from "./store";
+import Header from "./components/Header/Header";
+import Content from "./components/Content/Content";
 import Sidebar from "./components/Sidebar/Sidebar";
-import { useWindowWidth } from "./shared/customHooks";
+import { useWindowSize } from "./shared/customHooks";
 
-function App() {
-  const isDesktop = useWindowWidth();
+const App = () => {
+  const { isDesktop } = useWindowSize();
 
   return (
     <Provider store={store}>

@@ -1,42 +1,42 @@
-import { Airport, Companies, Ticket, TicketTime } from "./types";
+import { Airports, Companies, Ticket } from "./types";
 import victoryLogo from '../assets/victory.png';
 import redWingsLogo from '../assets/RedWings.png';
 import s7Logo from '../assets/S7.png';
 
 // Массив с аэропортами
-const airports: Airport[] = [
-    {"code": "DME", "name": "Москва (Домодедово)"},
-    {"code": "SVO", "name": "Москва (Шереметьево)"},
-    {"code": "VKO", "name": "Москва (Внуково)"},
-    {"code": "ZIA", "name": "Москва (Жуковский)"},
-    {"code": "LED", "name": "Санкт-Петербург (Пулково)"},
-    {"code": "UFA", "name": "Уфа (Уфимский)"},
-    {"code": "KZN", "name": "Казань (Казанский)"},
-    {"code": "AER", "name": "Сочи (Адлер)"},
-    {"code": "ROV", "name": "Ростов-на-Дону (Платов)"},
-    {"code": "SVX", "name": "Екатеринбург (Кольцово)"},
-    {"code": "KRR", "name": "Краснодар (Пашковский)"},
-    {"code": "OVB", "name": "Новосибирск (Толмачево)"},
-    {"code": "CEK", "name": "Челябинск (Баландино)"},
-    {"code": "KJA", "name": "Красноярск (Емельяново)"},
-    {"code": "UUD", "name": "Улан-Удэ (Мухино)"},
-    {"code": "VVO", "name": "Владивосток (Кневичи)"},
-    {"code": "KUF", "name": "Самара (Курумоч)"},
-    {"code": "TJM", "name": "Тюмень (Рощино)"},
-    {"code": "KGD", "name": "Калининград (Храброво)"},
-    {"code": "NJC", "name": "Нижневартовск (Богандинский)"},
-    {"code": "AAQ", "name": "Анапа (Витязево)"},
-    {"code": "VOG", "name": "Волгоград (Гумрак)"},
-    {"code": "GOJ", "name": "Нижний Новгород (Стригино)"},
-    {"code": "SGC", "name": "Сургут (Сургут)"},
-    {"code": "BQS", "name": "Благовещенск (Игнатьево)"},
-    {"code": "MJZ", "name": "Мирный (Мирный)"},
-    {"code": "MMK", "name": "Мурманск (Мурманск)"},
-    {"code": "NER", "name": "Нерюнгри (Чурапча)"},
-    {"code": "IJK", "name": "Ижевск (Плеханово)"},
-    {"code": "DYR", "name": "Анадырь (Угольный)"},
-    {"code": "YKS", "name": "Якутск (Якутск)"},
-    {"code": "BAX", "name": "Барнаул (Герцена)"},
+const airports: Airports[] = [
+  {"code": "DME"},
+  {"code": "SVO"},
+  {"code": "VKO"},
+  {"code": "ZIA"},
+  {"code": "LED"},
+  {"code": "UFA"},
+  {"code": "KZN"},
+  {"code": "AER"},
+  {"code": "ROV"},
+  {"code": "SVX"},
+  {"code": "KRR"},
+  {"code": "OVB"},
+  {"code": "CEK"},
+  {"code": "KJA"},
+  {"code": "UUD"},
+  {"code": "VVO"},
+  {"code": "KUF"},
+  {"code": "TJM"},
+  {"code": "KGD"},
+  {"code": "NJC"},
+  {"code": "AAQ"},
+  {"code": "VOG"},
+  {"code": "GOJ"},
+  {"code": "SGC"},
+  {"code": "BQS"},
+  {"code": "MJZ"},
+  {"code": "MMK"},
+  {"code": "NER"},
+  {"code": "IJK"},
+  {"code": "DYR"},
+  {"code": "YKS"},
+  {"code": "BAX"},
 ];
 
 // Генерация всех билетов
@@ -44,50 +44,40 @@ const generateTickets = (): Ticket[] =>
   Array.from({ length: 30 }, (_, i) => generateTicket(i));
   
   // Генерация отдельного билета
-  const generateTicket = (id: number): Ticket => {
+const generateTicket = (id: number): Ticket => {
+  const startTime = getDepartureTime();
+  const duration = getRandomDuration();
+  const endTime = getLandindTime(startTime, duration);
 
-    const ticketTime: TicketTime = getTicketTime();
-  
-    // Формирование билета
-    return {
-      id: id + 1,
-      from: getRandomAirport().code,
-      to: getRandomAirport().code,
-      company: getRandomCompany(),
-      price: getRandomNumber(1000, 100000),
-      time: ticketTime,
-      duration: getRandomDuration(),
-      connectionAmount: getRandomNumber(0, 3),
-    };
+  // Формирование билета
+  return {
+    id: id + 1,
+    from: getRandomAirport().code,
+    to: getRandomAirport().code,
+    company: getRandomCompany(),
+    price: getRandomNumber(1500, 100000),
+    startTime,
+    endTime,
+    duration,
+    connectionAmount: getRandomNumber(0, 3),
   };
-  
-  // Генерация времени вылета и прилета
-  const getTicketTime = (): TicketTime => {
-    const startTime = getDepartureTime();
-    const duration = getRandomDuration();
-    const endTime = getLandindTime(startTime, duration);
-    
-    return {
-      startTime: startTime,
-      endTime: endTime,
-    };
-  };
+};
   
   // Получение случайного аэропорта
-  const getRandomAirport = (): Airport => airports[Math.floor(Math.random() * airports.length)];
+const getRandomAirport = (): Airports => airports[Math.floor(Math.random() * airports.length)];
   
   // Генерация случайного времени вылета
-  const getDepartureTime = (): string => {
+const getDepartureTime = (): string => {
     const hour = getRandomNumber(0, 23).toString().padStart(2, '0');
     const minute = getRandomNumber(0, 59).toString().padStart(2, '0');
     return `${hour}:${minute}`;
-  };
+};
   
   // Генерация случайной продолжительности от 1 часа до 24 часов
-  const getRandomDuration = (): number => getRandomNumber(60, 24 * 60);
+const getRandomDuration = (): number => getRandomNumber(60, 24 * 60);
   
   // Расчет времени прилета на основе времени вылета и продолжительности
-  const getLandindTime = (startTime: string, duration: number): string => {
+const getLandindTime = (startTime: string, duration: number): string => {
     const startHour = Number(startTime.split(':')[0]);
     const startMinute = Number(startTime.split(':')[1]);
   
@@ -95,43 +85,30 @@ const generateTickets = (): Ticket[] =>
     const endMinute = Math.floor((startMinute + duration % 60) % 60);
   
     return `${endHour.toString().padStart(2, '0')}:${endMinute.toString().padStart(2, '0')}`;
-  };
+};
   
-  // Генерация случайного числа в заданном диапазоне
-  const getRandomNumber = (min: number, max: number): number => {
+  // Генерация случайного числа для цены билета и количеста пересадок
+const getRandomNumber = (min: number, max: number): number => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
-  };
+};
 
-  const companiesData = [
-    { key: 'victory', name: 'Победа', logo: victoryLogo, alt: "Логотип компании Победа" },
-    { key: 'redWings', name: 'Red Wings', logo: redWingsLogo, alt: "Логотип компании Red Wings" },
-    { key: 'S7', name: 'S7', logo: s7Logo, alt: "Логотип компании S7" },
+  // Массив данных об авиакомпаниях
+export const companiesData = [
+  { key: 'pobeda', name: 'Победа', logo: victoryLogo, alt: "Логотип компании Победа" },
+  { key: 'redWings', name: 'Red Wings', logo: redWingsLogo, alt: "Логотип компании Red Wings" },
+  { key: 'S7', name: 'S7', logo: s7Logo, alt: "Логотип компании S7" },
 ];
 
+// Создаем объект компаний из данных, полученных из MockData
 export const companies: { [key: string]: Companies } = Object.fromEntries(
-    companiesData.map(company => [company.key, { name: company.name, logo: company.logo, alt: company.alt }])
+  companiesData.map(company => [company.key, { name: company.name, logo: company.logo, alt: company.alt }])
 );
   
   // Генерация случайной авиакомпании
-  const getRandomCompany = (): string => {
-    const companyNames = Object.keys(companies);
-    return companyNames[Math.floor(Math.random() * companyNames.length)];
+const getRandomCompany = (): string => {
+  const companyNames = Object.keys(companies);
+  return companyNames[Math.floor(Math.random() * companyNames.length)];
 };
-
-// Функция форматирования времени в пути
-export const formatDuration = (duration: number): string => {
-    const hours = Math.floor(duration / 60);
-    const minutes = duration % 60;
-
-    const formattedHours = hours > 0 ? `${hours}ч` : '';
-    const formattedMinutes = minutes > 0 ? ` ${minutes}м` : '';
-
-    return `${formattedHours}${formattedMinutes}`;
-};
-
-// Функция форматирования цены
-export const formatPrice = (price: number): string =>
-  price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 
 // Экспорт функции для генерации билетов
 export default generateTickets;

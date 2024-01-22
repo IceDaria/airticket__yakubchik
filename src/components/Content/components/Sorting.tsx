@@ -1,10 +1,10 @@
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import s from '../Content.module.scss';
 import { FilterState, setSorting } from '../../../shared/Redusers/filtersReducer';
-import React from 'react';
 
 // Создаём верхнюю плашку с сортировкой билетов
-export const Sorting = () => {
+const Sorting = () => {
     const criteria = useSelector((state: FilterState) => state.filter.criteria);
     const dispatch = useDispatch();
 
@@ -16,7 +16,7 @@ export const Sorting = () => {
     ];
 
 // Обработчик изменения критерия сортировки
-    const handleChange = (value: string) => {
+    const handleClick = (value: string) => {
         dispatch(setSorting({ value }));
     };
 
@@ -32,7 +32,7 @@ export const Sorting = () => {
                         name={'criteria'}
                         value={option.value}
                         id={option.id}
-                        onChange={() => handleChange(option.value)}
+                        onChange={() => handleClick(option.value)}
                         checked={criteria.value === option.value}
                     />
                     <label htmlFor={option.id} className={s.item}>{option.label}</label>
@@ -41,3 +41,5 @@ export const Sorting = () => {
         </div>
     );
 }
+
+export default Sorting
